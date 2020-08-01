@@ -7,4 +7,6 @@ end
 # PATCH and DELETE requests to use with hidden input
 use Rack::MethodOverride
 #mount other controllers with 'use'
+use UsersController
+
 run ApplicationController

@@ -8,6 +8,6 @@ PrayerEntry.create(content: "Today I am grateful to wake up.", user_id: abraham.
 
 abraham.prayer_entries.create(content: "Today is a great day to rejoice!")
 
-#build instantiates similar to using new so we have to call save.
+#build = instantiates, similar to using new so we have to call save.
 joes_entry = joe.prayer_entries.build(content: "I am grateful for the breeze during a hot summer walk.")
 joes_entry.save 
