@@ -12,14 +12,20 @@ class PrayerEntriesController < ApplicationController
         end
         if params[:content] != ""
             @prayer_entry = PrayerEntry.create(content: params[:content], user_id: current_user.id)
+
             redirect "/prayer_entries/#{@prayer_entry.id}"
         else
             redirect '/prayer_entries/new'
         end
     end
-
-    get 'prayer_entries/:id' do
+    
+    #show route
+    get '/prayer_entries/:id' do
         @prayer_entry = PrayerEntry.find(params[:id])
         erb :'/prayer_entries/show'
+    end
+    #route to edit erb to render edit form
+    get '/prayer_entries/:id/edit' do
+        erb :'/prayer_entries/edit'      
     end
 end
