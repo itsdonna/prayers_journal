@@ -1,12 +1,5 @@
 Prayer Entry
 
-<p>Created by: <%= current_user[:name]%></p>
+<p><%= @prayer_entry.content %></p>
 
-<p>Created on: <%= @prayer.created_at %></p>
-
-<br><br>
-  <form action="/prayer/<%= @prayer.id %>" method="post">
-  
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" name="" value="Delete this Entry">
-  </form>
+<a href="/prayer_entries/<%= @prayer_entry.id %>/edit">Edit Prayer</a>

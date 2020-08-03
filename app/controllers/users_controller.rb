@@ -17,6 +17,7 @@ class UsersController < ApplicationController
             puts session
             redirect "users/#{@user.id}"
         else
+            redirect '/login'
         end
         
     end
