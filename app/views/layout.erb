@@ -14,6 +14,20 @@
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
+     <div class="nav">
+    
+      <%unless logged_in?%>
+        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Logout</a></li>
+      
+      <% else %>
+
+        <li><a href="/journals">My Prayers</a></li>
+        <li><a href="/journals/new">New Prayer</a></li>
+        <li><a href="/logout">Logout</a></li>
+
+      <% end %>
     <div class="wrapper">
 
         <%= yield %>
