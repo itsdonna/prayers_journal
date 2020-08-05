@@ -17,15 +17,15 @@
      <div class="nav">
     
       <%unless logged_in?%>
-        <li><a href="/signup">Sign Up</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="/signup"> Sign Up</a></li>
+        <li><a href="/login"> Login</a></li>
+        <li><a href="/logout"> Logout</a></li>
       
       <% else %>
 
-        <li><a href="/prayer_entries/show">My Prayers</a></li>
-        <li><a href="/prayer_entries/new">New Prayer</a></li>
-        <li><a href="/logout">Logout</a></li>
+        <li><a href="/prayer_entries"> All Prayers</a></li>
+        <li><a href="/prayer_entries/new"> New Prayer</a></li>
+        <li><a href="/logout"> Logout</a></li>
 
       <% end %>
     <div class="wrapper">
