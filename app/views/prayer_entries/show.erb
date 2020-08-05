@@ -2,4 +2,6 @@ Prayer Entry
 
 <p><%= @prayer_entry.content %></p>
 
-<a href="/prayer_entries/<%= @prayer_entry.id %>/edit">Edit Prayer</a>
+<% if authorized_to_edit?(@prayer_entry) %>
+    <a href="/prayer_entries/<%= @prayer_entry.id %>/edit">Edit Prayer</a>
+<% end %>
