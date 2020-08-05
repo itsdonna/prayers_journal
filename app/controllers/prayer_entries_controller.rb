@@ -58,6 +58,16 @@ class PrayerEntriesController < ApplicationController
             redirect '/'
         end
     end
+
+    delete '/prayer_entires/:id' do
+        set_prayer_entry
+        if authorized_to_edit?(@prayer_entry)
+            @prayer_entry.destory
+            redirect '/prayer_entries'
+        else
+            redirect '/prayer_entries'
+        end
+    end
     
     private
     
