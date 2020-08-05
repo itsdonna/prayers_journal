@@ -21,11 +21,41 @@ class PrayerEntriesController < ApplicationController
     
     #show route
     get '/prayer_entries/:id' do
-        @prayer_entry = PrayerEntry.find(params[:id])
+        set_prayer_entry
         erb :'/prayer_entries/show'
     end
+    
     #route to edit erb to render edit form
     get '/prayer_entries/:id/edit' do
-        erb :'/prayer_entries/edit'      
+        set_prayer_entry
+        if logged_in?
+            if @prayer_entry.user == current_user
+                erb :'/prayer_entries/edit'
+            else
+                redirect "users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
+    end
+    
+    patch '/prayer_entries/:id' do
+        set_prayer_entry
+        if logged_in?
+            if @prayer_entry.user == current_user
+                @prayer_entry.update(content: params[:content])
+                redirect "/prayer_entries/#{@prayer_entry.id}"
+            else
+                redirect "users/#{current_user.id}"
+            end
+        else
+            redirect '/'
+        end
+    end
+    
+    private
+    
+    def set_prayer_entry
+        @prayer_entry = PrayerEntry.find(params[:id])
     end
 end

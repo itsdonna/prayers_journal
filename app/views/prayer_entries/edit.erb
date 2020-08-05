@@ -1,1 +1,8 @@
-Edit form 
+<form action="/prayer_entries/<%= @prayer_entry.id%>" method="post">
+ 
+    <input type="hidden" name="_method" value="patch">
+    <label for="name">Content:</label>
+    <textarea name="content" style="width:auto; height:auto;"><%= @prayer_entry.content %></textarea>
+
+    <input type="submit" name="" value="Edit Prayer">
+</form>
