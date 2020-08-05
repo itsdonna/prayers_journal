@@ -1,5 +1,11 @@
 class PrayerEntriesController < ApplicationController
 
+    get '/prayer_entries' do
+        @prayer_entries = PrayerEntry.all
+        erb :'prayer_entries/index'
+    end
+    
+    #create: render new form for new entry
     get '/prayer_entries/new' do
         erb :'/prayer_entries/new'
     end
@@ -29,7 +35,7 @@ class PrayerEntriesController < ApplicationController
     get '/prayer_entries/:id/edit' do
         set_prayer_entry
         if logged_in?
-            if @prayer_entry.user == current_user
+            if authorized_to_edit?(@prayer_entry)
                 erb :'/prayer_entries/edit'
             else
                 redirect "users/#{current_user.id}"
