@@ -1,1 +1,8 @@
 Prayer Index
+
+<% @prayer_entries.each do |prayer_entry| %>
+    <h4><a href="/prayer_entries/<%= prayer_entry.id %>"<%= prayer_entry.created_at %></a> </h4>
+    <p><%= prayer_entry.content %></p>
+    <p>By <%= prayer_entry.user.name%></p>
+    <br><br>
+<% end %>
