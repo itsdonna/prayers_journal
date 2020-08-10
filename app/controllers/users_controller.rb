@@ -2,21 +2,23 @@ class UsersController < ApplicationController
 
     #create: login route -> login page
     get '/login'do
-       erb :login
+        erb :'/login'
     end
 
     #create session: find user, login
     #form action ->login (url), method ->post
-    post '/login' do
+    post "/login" do
 
         @user = User.find_by(email: params[:email])
         
-        if @user.authenticate(params[:password])
+        if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id #each user has a unique id to login
             #redirect to landing page
             puts session
+            flash[:message] = "Welcome, #{@user.name}!"
             redirect "users/#{@user.id}"
         else
+            flash[:errors] = "Email or Password is invalid. Please try again or sign up."
             redirect '/login'
         end
         
@@ -24,7 +26,7 @@ class UsersController < ApplicationController
 
     #create :signup route; renders signup form
     get '/signup' do
-        erb :signup
+        erb :'/signup'
     end
 
     post '/users' do
@@ -40,6 +42,7 @@ class UsersController < ApplicationController
 
     get '/users/:id' do
         @user = User.find_by(id: params[:id])
+    
         erb :'/users/show'
     end
 

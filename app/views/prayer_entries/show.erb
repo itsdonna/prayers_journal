@@ -2,13 +2,16 @@ Prayer Entry
 
 <p><%= @prayer_entry.content %></p>
 
+
 <% if authorized_to_edit?(@prayer_entry) %>
     <a href="/prayer_entries/<%= @prayer_entry.id %>/edit">Edit Prayer</a>
-
+    
    <br><br>
 
-    <form action="/prayer_entries/<%= @prayer_entry.id %>" method="post">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="submit" name="" value="Delete Prayer">
-    </form>
+   <form action="/prayer_entries/<%= @prayer_entry.id %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" name="" value="Delete Prayer">
+   
+   </form>    
 <% end %>
+

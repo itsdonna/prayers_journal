@@ -15,7 +15,7 @@
   </head>
   <body>
      <div class="nav">
-    
+      <% if logged_in? %>
       <%unless logged_in?%>
         <li><a href="/signup"> Sign Up</a></li>
         <li><a href="/login"> Login</a></li>
@@ -26,9 +26,20 @@
         <li><a href="/prayer_entries"> All Prayers</a></li>
         <li><a href="/prayer_entries/new"> New Prayer</a></li>
         <li><a href="/logout"> Logout</a></li>
-
       <% end %>
+      <% end %>
+
+      </div>     
+      
     <div class="wrapper">
+
+     <% if flash[:message] %>
+         <h3><%= flash[:message] %></h3>
+      <% end %>
+
+      <% if flash[:errors] %>
+         <h3 style="color: red;"><%= flash[:errors] %></h3>
+      <% end %>
 
         <%= yield %>
 

@@ -17,10 +17,13 @@ class PrayerEntriesController < ApplicationController
             redirect '/'
         end
         if params[:content] != ""
+
+            flash[:message] = "New Prayer successfully created."
             @prayer_entry = PrayerEntry.create(content: params[:content], user_id: current_user.id)
 
             redirect "/prayer_entries/#{@prayer_entry.id}"
         else
+            flash[:message] = "Empty Message"
             redirect '/prayer_entries/new'
         end
     end
@@ -48,7 +51,7 @@ class PrayerEntriesController < ApplicationController
     patch '/prayer_entries/:id' do
         set_prayer_entry
         if logged_in?
-            if @prayer_entry.user == current_user
+            if @prayer_entry.user == current_user && params[:content] != ""
                 @prayer_entry.update(content: params[:content])
                 redirect "/prayer_entries/#{@prayer_entry.id}"
             else
@@ -59,14 +62,16 @@ class PrayerEntriesController < ApplicationController
         end
     end
 
-    delete '/prayer_entires/:id' do
+    delete '/prayer_entries/:id' do
         set_prayer_entry
         if authorized_to_edit?(@prayer_entry)
-            @prayer_entry.destory
+            @prayer_entry.destroy
             redirect '/prayer_entries'
         else
             redirect '/prayer_entries'
+
         end
+        
     end
     
     private
