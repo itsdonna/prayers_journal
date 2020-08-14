@@ -13,17 +13,15 @@ class PrayerEntriesController < ApplicationController
     post '/prayer_entries' do
         #create new entry
         #save entry
-        if !logged_in?
-            redirect '/'
-        end
+        redirect_if_not_logged_in
         if params[:content] != ""
 
+            @prayer_entry = PrayerEntry.create(content: params[:content], user_id: current_user.id, title: params[:title])
+            
             flash[:message] = "New Prayer successfully created."
-            @prayer_entry = PrayerEntry.create(content: params[:content], user_id: current_user.id)
-
             redirect "/prayer_entries/#{@prayer_entry.id}"
         else
-            flash[:message] = "Empty Message"
+            flash[:message] = "Message cannot be empty."
             redirect '/prayer_entries/new'
         end
     end
@@ -36,29 +34,25 @@ class PrayerEntriesController < ApplicationController
     
     #route to edit erb to render edit form
     get '/prayer_entries/:id/edit' do
+        redirect_if_not_logged_in
         set_prayer_entry
-        if logged_in?
-            if authorized_to_edit?(@prayer_entry)
-                erb :'/prayer_entries/edit'
-            else
-                redirect "users/#{current_user.id}"
-            end
+    
+        if authorized_to_edit?(@prayer_entry)
+            erb :'/prayer_entries/edit'
         else
-            redirect '/'
+            redirect "users/#{current_user.id}"
         end
     end
     
     patch '/prayer_entries/:id' do
+        redirect_if_not_logged_in
         set_prayer_entry
-        if logged_in?
-            if @prayer_entry.user == current_user && params[:content] != ""
-                @prayer_entry.update(content: params[:content])
-                redirect "/prayer_entries/#{@prayer_entry.id}"
-            else
-                redirect "users/#{current_user.id}"
-            end
+        
+        if @prayer_entry.user == current_user && params[:content] != ""
+            @prayer_entry.update(content: params[:content])
+            redirect "/prayer_entries/#{@prayer_entry.id}"
         else
-            redirect '/'
+            redirect "users/#{current_user.id}"
         end
     end
 
@@ -66,12 +60,11 @@ class PrayerEntriesController < ApplicationController
         set_prayer_entry
         if authorized_to_edit?(@prayer_entry)
             @prayer_entry.destroy
+            flash[:message] = "Successfully delete that entry."
             redirect '/prayer_entries'
         else
             redirect '/prayer_entries'
-
         end
-        
     end
     
     private
