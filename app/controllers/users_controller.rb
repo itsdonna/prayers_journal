@@ -30,19 +30,22 @@ class UsersController < ApplicationController
     end
 
     post '/users' do
-        if params[:name] != "" && params[:password] !=""
-        @user = User.create(params)
+        @user = User.new(params)
+        if @user.save
         session[:user_id] = @user.id
+        flash[:message] = "Welcome to Your Prayer Journal, #{@user.name}!"
         redirect "/users/#{@user.id}"
         
         else
+
+            flash[:errors] = "Something went wrong. Failed to create account: #{@user.errors.full_messages.to_sentence}"
             redirect '/signup'
         end
     end
 
     get '/users/:id' do
         @user = User.find_by(id: params[:id])
-    
+        redirect_if_not_logged_in
         erb :'/users/show'
     end
 
