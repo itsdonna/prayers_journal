@@ -1,7 +1,8 @@
-Prayer Entry
-
+<h4><%= @prayer_entry.title %></h4>
 <p><%= @prayer_entry.content %></p>
 
+
+<p>Created on <%= @prayer_entry.formatted_created_at %></p>
 
 <% if authorized_to_edit?(@prayer_entry) %>
     <a href="/prayer_entries/<%= @prayer_entry.id %>/edit">Edit Prayer</a>

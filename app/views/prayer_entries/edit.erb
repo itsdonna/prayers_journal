@@ -1,6 +1,8 @@
 <form action="/prayer_entries/<%= @prayer_entry.id%>" method="post">
  
     <input type="hidden" name="_method" value="patch">
+    <label for="title">Title:</label>
+    <input type="text" name="title" value="<%= @prayer_entry.title %>">
     <label for="name">Content:</label>
     <textarea name="content" style="width:auto; height:auto;"><%= @prayer_entry.content %></textarea>
 
