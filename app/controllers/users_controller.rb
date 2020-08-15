@@ -14,7 +14,7 @@ class UsersController < ApplicationController
         if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id #each user has a unique id to login
             #redirect to landing page
-            puts session
+            
             flash[:message] = "Welcome, #{@user.name}!"
             redirect "users/#{@user.id}"
         else
