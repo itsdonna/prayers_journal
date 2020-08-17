@@ -12,6 +12,7 @@ gem 'pry'
 gem 'bcrypt'
 gem 'tux'
 gem 'sinatra-flash'
+gem "kramdown", ">= 2.3.0"
 
 group :test do
   gem 'rspec'
