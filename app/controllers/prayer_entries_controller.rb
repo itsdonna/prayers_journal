@@ -1,5 +1,6 @@
 class PrayerEntriesController < ApplicationController
 
+    # read route
     get '/prayer_entries' do
         @prayer_entries = PrayerEntry.all
         erb :'prayer_entries/index'
@@ -10,6 +11,7 @@ class PrayerEntriesController < ApplicationController
         erb :'/prayer_entries/new'
     end
 
+    #create route
     post '/prayer_entries' do
         #create new entry
         #save entry
@@ -32,7 +34,7 @@ class PrayerEntriesController < ApplicationController
         erb :'/prayer_entries/show'
     end
     
-    #route to edit erb to render edit form
+    # Update route to edit erb to render edit form
     get '/prayer_entries/:id/edit' do
         redirect_if_not_logged_in
         set_prayer_entry
@@ -44,6 +46,7 @@ class PrayerEntriesController < ApplicationController
         end
     end
     
+    # update route
     patch '/prayer_entries/:id' do
         redirect_if_not_logged_in
         set_prayer_entry
@@ -56,6 +59,7 @@ class PrayerEntriesController < ApplicationController
         end
     end
 
+    # destroy route
     delete '/prayer_entries/:id' do
         set_prayer_entry
         if authorized_to_edit?(@prayer_entry)
