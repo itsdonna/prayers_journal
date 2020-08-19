@@ -18,7 +18,10 @@ class PrayerEntriesController < ApplicationController
         redirect_if_not_logged_in
         if params[:content] != ""
 
-            @prayer_entry = PrayerEntry.create(content: params[:content], user_id: current_user.id, title: params[:title])
+            @prayer_entry = @current_user.prayer_entries.build(content: params[:content], title: params[:title])
+           binding.pry
+
+            #@prayer_entry = PrayerEntry.create(content: params[:content], user_id: current_user.id, title: params[:title])
             
             flash[:message] = "New Prayer successfully created."
             redirect "/prayer_entries/#{@prayer_entry.id}"
